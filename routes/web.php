@@ -25,6 +25,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
     Route::resource('roles', 'RolesController');
     Route::resource('permissions', 'PermissionsController');
     Route::resource('users', 'UsersController');
+    Route::resource('groups', 'GroupsController');
 });
 
 Auth::routes();

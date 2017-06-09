@@ -38,6 +38,19 @@
                         </label>
                     @endforeach
                 </div>
+
+                <hr />
+
+                <div class="checkbox">
+                    @foreach($groups as $group)
+                        <label>
+                            {!! Form::checkbox('groups[]',$group->id,$user->groups->contains($group->id)?true:false) !!}
+                            {{--{!! Form::checkbox('groups[]',$group->id,false) !!}--}}
+                            {{ $group->name}}
+                        </label>
+                    @endforeach
+                </div>
+
                 <div class="form-group">
                     {!! Form::submit('编辑用户', ['class'=>'btn btn-default']) !!}
                 </div>

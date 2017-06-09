@@ -32,6 +32,16 @@
                             </label>
                         @endforeach
                     </div>
+                    {{--<div class="diver">------------------------------------</div>--}}
+                    <hr />
+                    <div class="checkbox">
+                        @foreach($groups as $group)
+                            <label>
+                                {!! Form::checkbox('groups[]',$group->id,false) !!}
+                                {{$group->name}}
+                            </label>
+                        @endforeach
+                    </div>
 
                     <div class="form-group">
                         {!! Form::submit('新建用户', ['class'=>'btn btn-primary']) !!}
@@ -89,6 +99,26 @@
                     {{--</form>--}}
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>新建分组</h3>
+                    {{--<form action="/admin/permissions" method="post">--}}
+                    {!! Form::open(['method'=>'post','route'=>'groups.store']) !!}
+                    {{--@include('auth.roles._createForm')--}}
+                    <div class="form-group">
+                        {!! Form::label('name', '名称', ['class'=>'control-label']) !!}
+                        {!! Form::text('name', null, ['class'=>'form-control']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::submit('新建分组', ['class'=>'btn btn-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
+                    {{--</form>--}}
+                </div>
+            </div>
+
         </div>
         <div class="col-md-9">
             @include('auth.roles._rolePanel')

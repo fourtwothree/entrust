@@ -19,6 +19,13 @@ class UsersController extends Controller
             $user->attachRoles($request->role);
         }
 
+        if($request->groups)
+        {
+            foreach($request->groups as $group){
+                $user->groups()->attach($group);
+            }
+        }
+
         return redirect()->back();
     }
 
@@ -42,6 +49,14 @@ class UsersController extends Controller
             $user->roles()->sync($request->role);
         } else {
             $user->roles()->detach();
+        }
+
+        if(!empty($request->groups)){
+            $user->groups()->sync($request->groups);
+        }else{
+            $user->groups()->detach();
+            //可以不分组，也可以给个默认分组
+//            $user->groups()->attach(1);
         }
 
         return redirect()->back();

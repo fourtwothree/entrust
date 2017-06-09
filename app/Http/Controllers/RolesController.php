@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\Permission;
 use App\Role;
 use App\User;
@@ -23,8 +24,9 @@ class RolesController extends Controller
         $roles = Role::with('perms')->get();
         $perms = Permission::get();
         $users = User::with('roles')->get();
+        $groups = Group::get();
 
-        return view('auth.roles.index', ['roles'=>$roles, 'perms'=>$perms, 'users'=>$users]);
+        return view('auth.roles.index', ['roles'=>$roles, 'perms'=>$perms, 'users'=>$users, 'groups'=>$groups]);
     }
 
     public function store(Request $request)

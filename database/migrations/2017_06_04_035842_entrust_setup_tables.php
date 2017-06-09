@@ -54,6 +54,24 @@ class EntrustSetupTables extends Migration
 
             $table->primary(['permission_id', 'role_id']);
         });
+
+        Schema::create('groups', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+
+        Schema::create('group_user', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned();
+            $table->integer('group_id')->unsigned();
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->primary(['user_id', 'group_id']);
+        });
     }
 
     /**
@@ -67,5 +85,7 @@ class EntrustSetupTables extends Migration
         Schema::drop('permissions');
         Schema::drop('role_user');
         Schema::drop('roles');
+        Schema::drop('group_user');
+        Schema::drop('groups');
     }
 }

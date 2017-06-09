@@ -1,5 +1,6 @@
 <?php
 
+use App\Group;
 use App\Permission;
 use App\Role;
 use App\User;
@@ -20,8 +21,10 @@ class PermissionTableSeeder extends Seeder
         Permission::truncate();
         Role::truncate();
         User::truncate();
+        Group::truncate();
         DB::table('role_user')->delete();
         DB::table('permission_role')->delete();
+        DB::table('group_user')->delete();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         //创建初始的管理员用户 if necessary
@@ -52,14 +55,14 @@ class PermissionTableSeeder extends Seeder
                 'name'=>'delete_user',
                 'display_name'=>'删除用户',
             ],
-//            [
-//                'name'=>'edit_role',
-//                'display_name'=>'编辑角色',
-//            ],
-//            [
-//                'name'=>'delete_role',
-//                'display_name'=>'删除角色',
-//            ]
+            [
+                'name'=>'edit_role',
+                'display_name'=>'编辑角色',
+            ],
+            [
+                'name'=>'delete_role',
+                'display_name'=>'删除角色',
+            ]
         ];
 
         foreach($permissions as $permission){
@@ -74,8 +77,11 @@ class PermissionTableSeeder extends Seeder
 //            'description'=>'管理用户的权限'
 //        ]);
 
-
         //给用户赋予相应的角色
         $aquila->attachRole($admin);
+
+        $group = Group::create([
+            'name' => '默认分组'
+        ]);
     }
 }

@@ -10,12 +10,16 @@
                 </div>
                 @if($user->name !== 'aquila')
                     {{--@ability('admin','delete_role',['validate_all'=>false])--}}
+                @role('admin')
                     @include('auth.users._deleteForm')
+                @endrole
                     {{--@endability--}}
                 @endif
 
                 {{--@ability('admin','edit_role')--}}
-                @include('auth.users._editUserModal')
+                @role('admin')
+                    @include('auth.users._editUserModal')
+                @endrole
                 {{--@endability--}}
                 <div class="clearfix"></div>
             </div>
@@ -28,7 +32,20 @@
                             {{$role->display_name or $role->name}}
                         </li>
                     @endforeach
+
                 </ul>
+
+                <hr />
+
+                <ur class="fa-ul">
+                    @foreach($user->groups as $group)
+                        <li>
+                            <i class="fa-li fa fa-tag"></i>
+                            {{$group->name}}
+                        </li>
+                    @endforeach
+                </ur>
+
             </div>
 
         </div>
